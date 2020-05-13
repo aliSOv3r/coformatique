@@ -1,16 +1,16 @@
 body{
   background-color: #FCF6BF;
   height: auto;
-  overflow: hidden;
 }
 .LoginWrapper,.RegCom{
   display: flex;
   margin: 25vh auto ;
+  overflow: hidden;
 }
 .RegCom{
   margin: 13vh auto;
 }
-.FormView{
+.FormView, .guestWrapper{
   margin: auto;
   text-align: center;
 }
@@ -56,9 +56,26 @@ body{
   color: #101327;
   transition: all 0.3s ease-in-out;
 }
+.MainBook .formGroup button{
+  width: 500px;
+}
 .formGroup input:focus{
   outline: none;
 }
+.formGroup textarea {
+  width: 500px;
+  height: 90px;
+  margin: auto;
+  border: 3px solid transparent;
+  border-radius: 16px;
+  box-shadow: 0px 3px 6px #00000029;
+  resize: none;
+  text-indent: 20px;
+}
+.formGroup textarea:focus {
+  outline: none;
+}
+
 .logicLink { 
   text-decoration: none;
   color: #101327;
@@ -69,4 +86,55 @@ body{
 }
 .logicLink:hover{
   text-decoration: underline;
+}
+.guestWrapper{
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+.msgItem button, .msgItem textarea{
+  width: 90% !important;
+}
+.msgBody{
+  background-color: #fff;
+  width: 90%;
+  border: 3px solid transparent;
+  border-radius: 25px;
+  padding: 10px;
+  margin: auto;
+}
+.msgItem{
+  background-color: #7F61E6;
+  margin: auto;
+  border: 3px solid transparent;
+  border-radius: 25px;
+  width: 24%;
+  padding: 20px;
+  display: block;
+  position: relative;
+  margin: 2%;
+}
+.MainBook p{
+  margin: 0;
+  margin-bottom: 5px;
+}
+.MainBook h3 ,.MainBook label{
+  color: #fff;
+  font-size: 20px;
+  text-transform: uppercase;
+  
+}
+.fa{
+  color:#7F61E6 ;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.fa:hover{
+  color: #39296dc2;
+}
+.trash:hover{
+  color: red;
 }
