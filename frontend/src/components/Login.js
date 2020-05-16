@@ -1,16 +1,40 @@
 import React,{useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login() {
+    const history =useHistory();
     const [getEmail, setEmail] = useState('');
     const [getPassword, setPassword] = useState('');
+
+    function onSubmit(e){
+        e.preventDefault();
+        let loginData = {
+            email : getEmail,
+            password : getPassword
+        };
+        axios({
+            url: '/auth/login',
+            method : 'POST',
+            data : loginData
+        })
+        .then((res) =>{
+            if(res['data'] === true){
+                alert('welcome');
+               history.push('/GuestMAssages');
+            } else {
+                alert('Email or password is wrong');
+            }
+        })
+    }
+
     return (
         <div className="LoginWrapper">
 
             <div className="FormView">
                 <h1>Welcome to my Guest Book</h1>
                 <h3>Please Login To Leave Me a Massage</h3>
-                <form>
+                <form onSubmit={onSubmit}>
                     <div className="formGroup">
                         <label>
                         E-mail Address

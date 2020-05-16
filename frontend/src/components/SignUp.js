@@ -1,7 +1,9 @@
 import React,{useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-export default function SignUp(props) {
+export default function SignUp() {
+    const history = useHistory();
     const [getName, setName] = useState('');
     const [getEmail, setEmail] = useState('');
     const [getPassword, setPassword] = useState('');
@@ -10,73 +12,40 @@ export default function SignUp(props) {
     //submit function
     function onSubmit(e){
         e.preventDefault();
-        if (getCPassword === getPassword){
-            let regDAta ={
+        if (getCPassword === getPassword) {
+            let regDAta = {
                 fullname : getName,
                 email : getEmail,
                 password : getPassword,
-                hasMsg : false
-            } 
-
-            
-
-            axios.get('/api/users')
-            .then((response) =>{
-                const data = response.data;
-                let checkEmail = data.filter(ckm => [getEmail].includes(ckm.email));
-                if( getPassword === getCPassword && checkEmail.length === 0){
-                    axios({
-                        url: '/api/save',
-                        method: 'POST',
-                        data: regDAta
-                    })
-                    .then(() => {
-                        console.log('data has sent');
-                        setName('');
-                        setEmail('');
-                        setPassword('');
-                        setCPassword('');
-                        props.history.push('/');
-                    })
-                    .catch(() =>{
-                        console.log('data lost');
-                    });
-                } else{
-                    alert('email already used')
-                }
+                hasMsg : false 
+            };
+            axios({
+                url: '/auth/check',
+                method : 'POST',
+                data : regDAta
             })
+            .then((res) => {
+
+                if (res['data'] === true){
+                    console.log(res);
+                    setName('');
+                    setEmail('');
+                    setPassword('');
+                    setCPassword('');
+                    history.push('/');
+                } else {
+
+                    alert('Email already in use')
+                } 
+            })
+            .catch(() =>{
+                console.log('data lost');
+            });
         } else {
-            alert("please check your password")
+            alert('check password')
         }
     }
-    // function onSubmit(e) {
-    //     e.preventDefault();
-    //     if ( getCPassword === getPassword){
-    //         let regDAta = {
-    //             fullname: getName,
-    //             email : getEmail,
-    //             password: getPassword,
-    //             hasMsg : false
-    //         }
-    //         axios({
-    //             url:'/api/save',
-    //             method:'POST',
-    //             data: regDAta
-    //         })
-    //         .then(() => {
-    //             console.log('data has sent');
-    //             setEmail('');
-    //             setPassword('');
-    //             setCPassword('');
-    //             props.history.push('/');
-                
-    //         })
-    //         .catch(() => {
-    //             console.log('data lost')
-    //         });
-    //     }
-    // }
-
+    
     return (
         <React.Fragment>
             <div className="RegCom">
